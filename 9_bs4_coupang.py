@@ -15,18 +15,41 @@ items = soup.find_all("li", attrs={"class":re.compile("^search-product")})
 # print(items[0].find("div", attrs={"class":"name"}).get_text())
 
 for item in items:
+
+    # 광고 제품 제외   
+    ad_badge = item.find("span", attrs={"class":"ad-badge-text"})
+    if ad_badge:
+        print(" <광고 상품 제외합니다.>")
+        continue
+
     name = item.find("div", attrs={"class":"name"}).get_text()  # 제품명
+
+    # Apple 제품 제외
+    if "Apple" in name:
+        print(" <Apple 상품 제외합니다>")
+        continue
+
     price = item.find("strong", attrs={"class":"price-value"}).get_text()  # 가격
-    
+
     rate = item.find("em", attrs={"class":"rating"})  # 평점
     if rate:
         rate = rate.get_text()
     else:
         rate = "평점 없음"
+        print(" <평점 없는 상품 제외합니다>")
+        continue
 
     rate_cnt = item.find("span", attrs={"class":"rating-total-count"})  # 평점 수
     if rate_cnt:
-        rate_cnt = rate_cnt.get_text()
+        rate_cnt = rate_cnt.get_text()  # 예 : (26)
+        rate_cnt = rate_cnt[1:-1] # 슬라이싱으로 2번째 값 ~ 뒤에서 2번째 값만 뽑아내기
+        #print("리뷰 수", rate_cnt)
     else:
         rate_cnt = "평점 수 없음"
-    print(name, price, rate, rate_cnt)
+        print(" <평점 수 없는 상품 제외합니다>")
+        continue
+
+    # 평점 4.5이상, 리뷰 100개 이상만 조회.
+    # 일단 rate를 float 형태로, rate_cnt는 int 형태로 바꿔줌
+    if float(rate) >= 4.5 and int(rate_cnt) >= 100:
+        print(name, price, rate, rate_cnt)
