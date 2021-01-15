@@ -1,3 +1,4 @@
+# beautifulsoup : 크롤링/스크래핑 라이브러리
 # pip install beautifulsoup4
 # pip install lxml
 
