@@ -1,3 +1,4 @@
+# user agent
 import requests
 url = "http://nadocoding.tistory.com"
 # 구글에 What is my user agent 라고 검색해서 내 user agent를 복사해온다.
