@@ -1,7 +1,7 @@
+# 네이버 웹툰 가우스 전자 스크래핑
+
 import requests
 from bs4 import BeautifulSoup
-
-# 웹툰 가우스 전자
 
 url = "https://comic.naver.com/webtoon/list.nhn?titleId=675554"
 res = requests.get(url)
