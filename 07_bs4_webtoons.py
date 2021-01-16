@@ -1,3 +1,4 @@
+# 네이버 웹툰 스크래핑
 import requests
 from bs4 import BeautifulSoup
 
