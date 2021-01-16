@@ -1,4 +1,5 @@
-# 쿠팡 - 노트북
+# 쿠팡 노트북 스크래핑
+
 import requests
 import re
 from bs4 import BeautifulSoup
