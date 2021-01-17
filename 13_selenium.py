@@ -1,4 +1,4 @@
-# selenium : 웹 페이지의 테스트 자동화를 할 수 있는 프에임웤
+# selenium : 웹 페이지의 테스트 자동화를 할 수 있는 프에임워크
 # selenium을 통해 직접 웹 브라우저를 컨트롤 하면서 html문서를 가져오면 이후 BeautifulSoup을 통해서 스크래핑 할 수 있음
 
 # pip install selenium
