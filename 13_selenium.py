@@ -10,6 +10,7 @@
 
 from selenium import webdriver
 
+# 1. 네이버 이동
 browser = webdriver.Chrome() # 만약 크롬드라이버가 다른 경로에 있다면 괄호 안에 경로를 ""로 적어줘야 함
 browser.get("http://naver.com") # 크롬 웹드라이버 객체를 생성하고 그 브라우저에서 이 url로 이동함
 
@@ -48,3 +49,31 @@ browser.get("http://naver.com") # 크롬 웹드라이버 객체를 생성하고 
 # browser.quit()  # 브라우저 전체 완전 종료
 
 # exit()  # 터미널 파이썬 종료
+
+#-------------------------------------------------------------------------------------------------------
+# 소스코드에 작성하는 방식
+
+# 네이버 로그인 하기
+
+# 2. 로그인 버튼 클릭
+elem = browser.find_element_by_class_name("link_login")
+elem.click()
+
+# 3. 아이디, 패스워드 입력
+browser.find_element_by_id("id").send_keys("naver_id")
+browser.find_element_by_id("pw").send_keys("passward")
+
+# 4. 로그인 버튼 클릭
+browser.find_element_by_id("log.login").click()  # 이렇게 한 줄로도 가능
+
+# 5. id를 새로 입력
+import time
+time.sleep(3)  # 3초 이후에 동작(페이지 전환 시간 때문에)
+browser.find_element_by_id("id").clear()  # 원래거는 지우기
+browser.find_element_by_id("id").send_keys("my_id")
+
+# 6. html 정보 출력
+print(browser.page_source)
+
+# 7. 브라우저 종료
+browser.quit()
