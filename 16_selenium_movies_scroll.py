@@ -42,3 +42,41 @@ while True:
     prev_height = curr_height
 
 print("스크롤 완료")
+
+
+
+# 15_selenium_movies 에서 사용한 코드를 가져 와서 수정
+
+import requests
+from bs4 import BeautifulSoup
+
+soup = BeautifulSoup(browser.page_source, "lxml")                         
+
+# 11위 부터는 class명이 Vpfmgd라서 리스트를 이용해 두 가지 class를 모두 불러온다.
+# movies = soup.find_all("div", attrs={"class":["ImZGtf mpg5gc", "Vpfmgd"]})
+
+# 그런데 확인해보니 1~10위는 class로 ImZGtf mpg5gc와 Vpfmgd 둘 다 가지고 있어서 값이 중복해서 2번 나왔다.
+# 따라서 class는 Vpfmgd 하나만 불러오도록 한다.
+movies = soup.find_all("div", attrs={"class": "Vpfmgd"})
+print(len(movies)) # 영화를 몇 개 가져왔는지 확인용
+
+# 영화 제목 가져오기
+for movie in movies:
+    title = movie.find("div", attrs={"class":"WsMG1c nnK0zc"}).get_text()
+    # print(title)
+
+# 할인하는 영화만 불러오기
+    # 할인 전 가격    
+    original_price = movie.find("span", attrs={"class":"SUZt4c djCuy"})
+    if original_price:
+        original_price = original_price.get_text()  # 할인 전 가격이 있으면(현재 할인 중이라면) 그걸 불러온다.
+    else:
+        print(title, " <할인되지 않은 영화 제외>")
+        continue
+
+    # 할인 후 가격
+    price = movie.find("span", attrs={"class":"VfPpfd ZdBevf i5DZme"})
+
+    # 링크(a 태그 찾아서 class명 확인)
+    link = movie.find("a", attrs={"class":"JC71ub"})["href"]
+    # 올바른 링크 : https://play.google.com + link
