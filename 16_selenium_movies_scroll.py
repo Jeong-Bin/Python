@@ -71,12 +71,20 @@ for movie in movies:
     if original_price:
         original_price = original_price.get_text()  # 할인 전 가격이 있으면(현재 할인 중이라면) 그걸 불러온다.
     else:
-        print(title, " <할인되지 않은 영화 제외>")
+        #print(title, " <할인되지 않은 영화 제외>") # 이거 있으니까 지저분해서 그냥 안 함
         continue
 
     # 할인 후 가격
-    price = movie.find("span", attrs={"class":"VfPpfd ZdBevf i5DZme"})
+    price = movie.find("span", attrs={"class":"VfPpfd ZdBevf i5DZme"}).get_text()
 
     # 링크(a 태그 찾아서 class명 확인)
     link = movie.find("a", attrs={"class":"JC71ub"})["href"]
     # 올바른 링크 : https://play.google.com + link
+
+    print(f"제목 : {title}")
+    print(f"할인 전 금액 : {original_price}")
+    print(f"할인 후 금액 : {price}")
+    print("링크 :", "https://play.google.com" + link)
+    print("-" * 55)
+
+browser.quit()
